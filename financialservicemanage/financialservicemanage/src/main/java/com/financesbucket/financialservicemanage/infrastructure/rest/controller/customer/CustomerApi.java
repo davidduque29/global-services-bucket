@@ -18,9 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,12 +42,7 @@ public class CustomerApi {
 
     @Autowired
     ListTransactionRepository listTransactionRepository;
-
-    @ApiOperation("Crear un cliente")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Cliente creado exitosamente"),
-            @ApiResponse(code = 400, message = "Error al crear el cliente")
-    })
+    //http://localhost:8080/financesbucket/swagger-ui.html
     @PostMapping("/createcustomer")
     public ResponseEntity<CustomerResponse<Customer>> addCustomerInformation(
             @RequestBody CustomerRequest customerRequest) {
@@ -66,11 +59,7 @@ public class CustomerApi {
         }
     }
 
-    @ApiOperation("Actualizar información de un cliente")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Cliente actualizado exitosamente"),
-            @ApiResponse(code = 400, message = "Error al actualizar el cliente")
-    })
+
     @PutMapping("/updatecostumer/{id}")
     public ResponseEntity<CustomerResponse<Customer>> updateCustomerRegisterId(@PathVariable("id") Long usuarioId,
                                                                                @RequestBody CustomerRequest customerInput) {
@@ -86,11 +75,7 @@ public class CustomerApi {
         }
     }
 
-    @ApiOperation("Eliminar un cliente por su ID")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Cliente eliminado exitosamente"),
-            @ApiResponse(code = 400, message = "Error al eliminar el cliente")
-    })
+
     @DeleteMapping("/deletecustomer/{id}")
     public ResponseEntity<CustomerResponse<Customer>> deleteCustomer(@PathVariable("id") Long id) {
         try {
@@ -103,11 +88,7 @@ public class CustomerApi {
         }
     }
 
-    @ApiOperation("Obtener una lista de todos los clientes")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Lista de clientes obtenida exitosamente"),
-            @ApiResponse(code = 400, message = "Error al obtener la lista de clientes")
-    })
+
     @GetMapping("/listcustomers")
     public ResponseEntity<CustomerResponse<Customer>> listCustomers() {
         try {
