@@ -3,7 +3,7 @@ Requisitos del sistema para ejecucion de la aplicacion
 * Descargar Java17 el archivo Windows x64 MSI Installer en la siguiente direccion:
   https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 * Comprobar en consola o CMD version insalada con la instruccion java --version
-* Descargar los archivos de código distribuible para Visual Studio 2019 para 
+* Descargar los archivos de cï¿½digo distribuible para Visual Studio 2019 para 
   funcionamiento de WorkBench
 * Instalar Mysql en MySQL Community Downloads y despues Workbench 8.0
 * Descargar Workbench 8.0 que sea compatible con la version de MySql
@@ -34,3 +34,5 @@ Requisitos del sistema para ejecucion de la aplicacion
 	#spring.jpa.hibernate.ddl-auto=create
 	#logging.level.org.hibernate.SQL=DEBUG
 	#logging.level.org.hibernate.type=TRACE
+Ejecutar swagger
+http://localhost:8080/swagger-ui.html
