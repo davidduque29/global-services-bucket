@@ -42,6 +42,9 @@ public class TransferAdapter implements TransferGateway {
                 .build();
         var account = ProductConverter.convertEntityToProduct(productCrudRepository
                 .findProductById(transferModel.getIdCuentaEnvio()));
+        // Se hace la operacion de restarle al saldo de la cuenta de envio, el valor que va a transferir
+        // a la cuenta de destino y despues sumarle a la cuenta de destino ese monto
+
 
         //setReferenceNumber(account, transferEntity);
         var savedTransaction = saveTransaction(transaction);
