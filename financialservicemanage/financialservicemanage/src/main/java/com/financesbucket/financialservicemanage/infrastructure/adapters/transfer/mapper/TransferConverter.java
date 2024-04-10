@@ -14,7 +14,7 @@ public class TransferConverter
         transfer.validTransfer(); // Validar transferencia
         TransferEntity entity = new TransferEntity();
         entity.setCuentaEnvio(convertLongToProduct(transfer.getIdCuentaEnvio()));
-        entity.setCuentaRecepcion(convertLongToProduct(transfer.getIdCuentaRecepcion()));
+        entity.setCuentaRecepcion(convertLongToProduct(transfer.getIdCuentaDestino()));
         entity.setMonto(transfer.getMonto());
         entity.setFechaTransferencia(transfer.getFechaTransferencia());
         entity.setEstado(TransferEntity.EstadoTransferencia.valueOf(transfer.getEstado()));
@@ -46,7 +46,7 @@ public class TransferConverter
         }
         return Transfer.builder()
                 .idCuentaEnvio(entity.getCuentaEnvio().getId())
-                .idCuentaRecepcion(entity.getCuentaRecepcion().getId())
+                .idCuentaDestino(entity.getCuentaRecepcion().getId())
                 .monto(entity.getMonto())
                 .fechaTransferencia(entity.getFechaTransferencia())
                 .estado(entity.getEstado().toString())

@@ -8,6 +8,6 @@ public interface TransferRepository extends JpaRepository<TransferEntity, Long> 
 
     @Query(value = "SELECT p FROM TransferEntity p WHERE p.id = ?1")
     TransferEntity findCountIdByCountId(Long id);
-
+    boolean existsByNumeroReferencia(String numeroReferencia);
 
 }

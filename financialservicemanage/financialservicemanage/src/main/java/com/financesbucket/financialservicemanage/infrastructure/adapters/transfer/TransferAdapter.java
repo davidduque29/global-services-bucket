@@ -1,11 +1,10 @@
 package com.financesbucket.financialservicemanage.infrastructure.adapters.transfer;
 
-import com.financesbucket.financialservicemanage.domain.product.productmodel.Product;
+import com.financesbucket.financialservicemanage.domain.exceptions.BussinessException;
 import com.financesbucket.financialservicemanage.domain.transfer.transfermodel.Transfer;
 import com.financesbucket.financialservicemanage.domain.transfer.transferport.TransferGateway;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.product.constants.ProductConstants;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.product.entity.ProductEntity;
-import com.financesbucket.financialservicemanage.infrastructure.adapters.product.mapperproduct.ProductConverter;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.product.repository.ProductCrudRepository;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.transaction.constants.TransactionConstants;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.transaction.entity.TransactionEntity;
@@ -14,16 +13,17 @@ import com.financesbucket.financialservicemanage.infrastructure.adapters.transfe
 import com.financesbucket.financialservicemanage.infrastructure.adapters.transfer.entity.TransferEntity;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.transfer.mapper.TransferConverter;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.transfer.repository.TransferCrudRepository;
+import com.financesbucket.financialservicemanage.infrastructure.adapters.transfer.repository.TransferRepository;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.transfer.utils.TransferUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class TransferAdapter implements TransferGateway {
+    private final TransferRepository transferRepository;
     private final TransferCrudRepository transferCrudRepository;
     private final TransactionCrudRepository transactionCrudRepository;
     private final ProductCrudRepository productCrudRepository;
@@ -31,28 +31,65 @@ public class TransferAdapter implements TransferGateway {
     @Override
     public Transfer createTransfer(Transfer transferModel) {
         var transferEntity = convertToTransferEntity(transferModel);
+        // Obtener las cuentas de envío y destino
+        var sendingAccount = getProductEntityById(transferModel.getIdCuentaEnvio(), "Cuenta de envío");
+        var destinationAccount = getProductEntityById(transferModel.getIdCuentaDestino(), "Cuenta de destino");
+        double transferAmount = transferModel.getMonto();
 
-        var transaction = TransactionEntity.builder()
-                .tipo(TransactionEntity.TipoTransaccion
-                        .valueOf(TransactionConstants.TRANSACTION_TRANSFER))
+        // Actualizar saldos de las cuentas
+        sendingAccount = updateAccountBalance(sendingAccount, transferAmount, true);
+        destinationAccount = updateAccountBalance(destinationAccount, transferAmount, false);
+
+        // Crear y guardar la transacción asociada con la transferencia
+        var transaction = createAndSaveTransaction(transferModel, sendingAccount);
+        // Actualizar la entidad de transferencia con el número de referencia y el estado
+        updateTransferEntity(transferEntity, sendingAccount);
+        // Guardar la entidad de transferencia y convertirla a un objeto Transfer para retornarla
+        TransferEntity savedTransfer = saveTransfer(transferEntity);
+        return TransferConverter.convertEntityToTransfer(savedTransfer);
+    }
+
+    // Método para actualizar el saldo de una cuenta y guardarla en la base de datos
+    private ProductEntity updateAccountBalance(ProductEntity account, double amount, boolean accountBalanceOperation) {
+        account.setFechaModificacion(new Date());
+        double updatedBalance;
+        if (accountBalanceOperation) {
+            updatedBalance = account.getSaldo() - amount;  // Restar el monto del saldo
+        } else {
+            updatedBalance = account.getSaldo() + amount;  // Sumar el monto al saldo
+        }
+        account.setSaldo(updatedBalance);
+        return productCrudRepository.save(account);
+    }
+
+    // Método para crear una transacción y guardarla en la base de datos
+    private TransactionEntity createAndSaveTransaction(Transfer transferModel, ProductEntity sendingAccount) {
+        TransactionEntity transaction = createTransaction(transferModel, sendingAccount);
+        return transactionCrudRepository.save(transaction);
+    }
+
+    // Método para crear una transacción asociada con la transferencia
+    private TransactionEntity createTransaction(Transfer transferModel, ProductEntity sendingAccount) {
+        return transactionCrudRepository.save(TransactionEntity.builder()
+                .tipo(TransactionEntity.TipoTransaccion.valueOf(TransactionConstants.TRANSACTION_TRANSFER))
                 .monto(transferModel.getMonto())
                 .fechaTransaccion(new Date())
-                .cuenta(ProductEntity.builder()
-                        .id(transferModel.getIdCuentaEnvio()).build())
-                .build();
-        var account = ProductConverter.convertEntityToProduct(productCrudRepository
-                .findProductById(transferModel.getIdCuentaEnvio()));
-        // Se hace la operacion de restarle al saldo de la cuenta de envio, el valor que va a transferir
-        // a la cuenta de destino y despues sumarle a la cuenta de destino ese monto
+                .cuenta(sendingAccount)
+                .build());
+    }
 
+    // Método para actualizar la entidad de transferencia con el número de referencia y el estado
+    private void updateTransferEntity(TransferEntity transferEntity, ProductEntity sendingAccount) {
+        transferEntity.setNumeroReferencia(generateUniqueReferenceNumber(sendingAccount.getTipoCuenta().toString()));
+        transferEntity.setEstado(TransferEntity.EstadoTransferencia.COMPLETADA);
+    }
 
-        //setReferenceNumber(account, transferEntity);
-        var savedTransaction = saveTransaction(transaction);
-        transferEntity.setNumeroReferencia("TRF-" + account.get().getNumeroCuenta());
-        transferEntity.setEstado(TransferEntity
-                .EstadoTransferencia.COMPLETADA);
-        var savedTranfer = saveTransfer(transferEntity);
-        return TransferConverter.convertEntityToTransfer(savedTranfer);
+    private ProductEntity getProductEntityById(Long productId, String errorMessagePrefix) {
+        return productCrudRepository.findProductById(productId)
+                .orElseThrow(() -> new BussinessException(
+                        TransactionConstants.ERR_NOT_FOUND_STATUS,
+                        errorMessagePrefix + " no encontrada",
+                        TransactionConstants.ERR_NOT_FOUND_CODE));
     }
 
     private TransferEntity convertToTransferEntity(Transfer transfer) {
@@ -65,22 +102,23 @@ public class TransferAdapter implements TransferGateway {
         return transferCrudRepository.save(transferEntity);
     }
 
-    private TransactionEntity saveTransaction(TransactionEntity transactionEntity) {
-        return transactionCrudRepository.save(transactionEntity);
-    }
-
-    private void setReferenceNumber(Optional<Product> productModel, TransferEntity transferEntity) {
-        String numeroReferencia;
-        if (productModel.get().getTipoCuenta().equals(ProductConstants.SAVINGS_ACCOUNT_TYPE)) {
-            numeroReferencia = TransferUtils.generateReferenceNumber(false);
-        } else {
-            numeroReferencia = TransferUtils.generateReferenceNumber(true);
-        }
-        transferEntity.setNumeroReferencia(numeroReferencia);
+    private String generateUniqueReferenceNumber(String tipoCuenta) {
+        boolean isCuentaCorriente = tipoCuenta.equals(ProductConstants.SAVINGS_ACCOUNT_TYPE);
+        String referenceNumber;
+        do {
+            referenceNumber = TransferUtils.generateReferenceNumber(isCuentaCorriente);
+            // Verificar si el número de referencia ya existe en la base de datos
+        } while (transferRepository.existsByNumeroReferencia(referenceNumber));
+        return referenceNumber;
     }
 
     @Override
     public Transfer findTransferById(Long id) {
-        return null;
+        TransferEntity transferEntity = transferCrudRepository.findTransferById(id)
+                .orElseThrow(() -> new BussinessException(
+                        TransactionConstants.ERR_NOT_FOUND_STATUS,
+                        "Transferencia no encontrada con ID: " + id,
+                        TransactionConstants.ERR_NOT_FOUND_CODE));
+        return TransferConverter.convertEntityToTransfer(transferEntity);
     }
 }

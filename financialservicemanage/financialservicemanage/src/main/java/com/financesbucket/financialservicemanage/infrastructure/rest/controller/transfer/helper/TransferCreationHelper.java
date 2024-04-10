@@ -15,8 +15,9 @@ public class TransferCreationHelper {
         // validar si el requeste es nulo
         var transfer = Transfer.builder()
                 .idCuentaEnvio(request.getIdCuentaEnvio())
-                .idCuentaRecepcion(request.getIdCuentaRecepcion())
+                .idCuentaDestino(request.getIdCuentaRecepcion())
                 .monto(request.getMonto())
+                .descripcion(request.getDescripcion())
                 .build();
         transfer.validTransfer();
         return transfer;

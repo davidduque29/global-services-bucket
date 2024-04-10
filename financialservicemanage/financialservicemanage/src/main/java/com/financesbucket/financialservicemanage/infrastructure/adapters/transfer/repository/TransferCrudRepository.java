@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface TransferCrudRepository extends JpaRepository<TransferEntity, Long> {
     Optional<TransferEntity> findTransferById(Long id);
+
 }

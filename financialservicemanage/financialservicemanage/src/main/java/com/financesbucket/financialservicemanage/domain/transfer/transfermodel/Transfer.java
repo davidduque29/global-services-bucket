@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder(toBuilder = true)
 public class Transfer {
     private Long idCuentaEnvio;
-    private Long idCuentaRecepcion;
+    private Long idCuentaDestino;
     private Double monto;
     private Date fechaTransferencia;
     private String estado;
@@ -25,7 +25,7 @@ public class Transfer {
     }
 
     private void isNotNullOrEmpty() {
-        if (this.idCuentaEnvio == null ||  this.idCuentaRecepcion == null || this.monto == 0) {
+        if (this.idCuentaEnvio == null ||  this.idCuentaDestino == null || this.monto == 0) {
             throw new BussinessException(ExceptionUtil.LOAD_NOT_ACCEPTABLE_EXCEPTION_STATUS
                     , ExceptionUtil.LOAD_NOT_ACCEPTABLE_EXCEPTION_DETAIL
                     , ExceptionUtil.LOAD_NOT_ACCEPTABLE_EXCEPTION_CODE);

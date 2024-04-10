@@ -33,7 +33,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"tipoIdentificacion\": \"cedula\",\r\n        \"numeroIdentificacion\": \"1054549309\",\r\n        \"primerNombre\": \"Ivan\",\r\n        \"segundoNombre\": \"David\",\r\n        \"primerApellido\": \"Duque\",\r\n        \"segundoApellido\": \"Perdomo\",\r\n        \"correoElectronico\": \"ivduque@hotmail.com\",\r\n        \"fechaNacimiento\": \"1989-05-05\"\r\n}",
+					"raw": "{\r\n        \"tipoIdentificacion\": \"cedula\",\r\n        \"numeroIdentificacion\": \"1058202887\",\r\n        \"primerNombre\": \"Blanca\",\r\n        \"segundoNombre\": \"Maria\",\r\n        \"primerApellido\": \"Morales\",\r\n        \"segundoApellido\": \"Mahecha\",\r\n        \"correoElectronico\": \"blama@hotmail.com\",\r\n        \"fechaNacimiento\": \"1970-07-07\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,14 +41,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/createcustomer",
+					"raw": "http://localhost:8080/{{service}}/createcustomer",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"createcustomer"
 					]
 				}
@@ -99,14 +99,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/createcustomer",
+					"raw": "http://localhost:8080/{{service}}/createcustomer",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"createcustomer"
 					]
 				}
@@ -120,7 +120,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"tipo\": \"CONSIGNACION\",\r\n    \"monto\": 150000.0,\r\n    \"cuentaId\": 1\r\n}",
+					"raw": "{\r\n    \"tipo\": \"CONSIGNACION\",\r\n    \"monto\": 200500,\r\n    \"cuentaId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -128,14 +128,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/createtransaction",
+					"raw": "http://localhost:8080/{{service}}/createtransaction",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"createtransaction"
 					]
 				}
@@ -149,7 +149,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"tipo\": \"RETIRO\",\r\n    \"monto\": 25000.0,\r\n    \"cuentaId\": 1\r\n}",
+					"raw": "{\r\n    \"tipo\": \"RETIRO\",\r\n    \"monto\": 120500.0,\r\n    \"cuentaId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -157,14 +157,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/createtransaction",
+					"raw": "http://localhost:8080/{{service}}/createtransaction",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"createtransaction"
 					]
 				}
@@ -244,14 +244,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/createproduct",
+					"raw": "http://localhost:8080/{{service}}/createproduct",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"createproduct"
 					]
 				}
@@ -273,14 +273,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/createproduct",
+					"raw": "http://localhost:8080/{{service}}/createproduct",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"createproduct"
 					]
 				}
@@ -293,14 +293,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/actuator/health",
+					"raw": "http://localhost:8080/{{service}}/actuator/health",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"actuator",
 						"health"
 					]
@@ -314,15 +314,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/listcustomer",
+					"raw": "http://localhost:8080/{{service}}/listcustomers",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
-						"listcustomer"
+						"{{service}}",
+						"listcustomers"
 					]
 				}
 			},
@@ -334,14 +334,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/transactions/1",
+					"raw": "http://localhost:8080/{{service}}/transactions/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"transactions",
 						"1"
 					]
@@ -355,14 +355,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/findproduct/1",
+					"raw": "http://localhost:8080/{{service}}/findproduct/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"findproduct",
 						"1"
 					]
@@ -398,7 +398,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"tipoIdentificacion\": \"cedula\",\r\n        \"numeroIdentificacion\": \"1058202887\",\r\n        \"primerNombre\": \"Blanca\",\r\n        \"segundoNombre\": \"Lilia\",\r\n        \"primerApellido\": \"Morales\",\r\n        \"segundoApellido\": \"Mahecha\",\r\n        \"correoElectronico\": \"blalilmor@hotmail.com\",\r\n        \"fechaNacimiento\": \"1970-07-07\"\r\n\r\n}",
+					"raw": "{\r\n        \"tipoIdentificacion\": \"cedula\",\r\n        \"numeroIdentificacion\": \"1058202887\",\r\n        \"primerNombre\": \"Blanca\",\r\n        \"segundoNombre\": \"Lili\",\r\n        \"primerApellido\": \"Morales\",\r\n        \"segundoApellido\": \"Mahecha\",\r\n        \"correoElectronico\": \"blalilmor@hotmail.com\",\r\n        \"fechaNacimiento\": \"1970-07-07\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -428,7 +428,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"tipoCuenta\": \"CUENTA_DE_AHORROS\",\r\n    \"numeroCuenta\": \"5354549309\",\r\n    \"estado\": \"ACTIVA\",\r\n    \"saldo\": 2.0,\r\n    \"exentaGMF\": true,\r\n    \"fechaCreacion\": \"2024-03-26T03:18:17.000+00:00\",\r\n    \"fechaModificacion\": \"2024-03-26T03:18:17.000+00:00\",\r\n    \"clienteId\": 1\r\n}",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"tipoCuenta\": \"CUENTA_DE_AHORROS\",\r\n    \"numeroCuenta\": \"3334787416\",\r\n    \"estado\": \"CANCELADA\",\r\n    \"saldo\": 0,\r\n    \"exentaGMF\": true,\r\n    \"fechaCreacion\": \"2024-03-26T03:18:17.000+00:00\",\r\n    \"fechaModificacion\": \"2024-03-26T03:18:17.000+00:00\",\r\n    \"clienteId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -436,14 +436,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quickfinances/updateproduct/1",
+					"raw": "http://localhost:8080/{{service}}/updateproduct/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quickfinances",
+						"{{service}}",
 						"updateproduct",
 						"1"
 					]
