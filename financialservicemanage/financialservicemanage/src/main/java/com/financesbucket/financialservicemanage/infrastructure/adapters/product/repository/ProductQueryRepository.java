@@ -14,7 +14,6 @@ public interface ProductQueryRepository extends JpaRepository<CustomerEntity, Lo
     @Query("SELECT COUNT(p) FROM ProductEntity p WHERE p.cliente.id = :clienteId")
     int countProductsByClient(@Param("clienteId") Long clienteId);
 
-
     @Query("SELECT COUNT(c) FROM CustomerEntity c WHERE c.id = :clienteId")
     int countExistingClientById(@Param("clienteId") Long clienteId);
 

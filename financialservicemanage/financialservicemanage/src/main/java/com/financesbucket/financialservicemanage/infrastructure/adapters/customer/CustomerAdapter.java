@@ -19,7 +19,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class CustomerOrigin implements CustomerGateway {
+public class CustomerAdapter implements CustomerGateway {
 
     private final CustomerCrudRepository customerCrudRepository;
     private final ProductQueryRepository productQueryRepository;

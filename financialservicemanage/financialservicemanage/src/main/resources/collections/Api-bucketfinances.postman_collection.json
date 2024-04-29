@@ -33,7 +33,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"tipoIdentificacion\": \"cedula\",\r\n        \"numeroIdentificacion\": \"1058202887\",\r\n        \"primerNombre\": \"Blanca\",\r\n        \"segundoNombre\": \"Maria\",\r\n        \"primerApellido\": \"Morales\",\r\n        \"segundoApellido\": \"Mahecha\",\r\n        \"correoElectronico\": \"blama@hotmail.com\",\r\n        \"fechaNacimiento\": \"1970-07-07\"\r\n}",
+					"raw": "{\r\n        \"tipoIdentificacion\": \"cedula\",\r\n        \"numeroIdentificacion\": \"1058202887\",\r\n        \"primerNombre\": \"Blanca\",\r\n        \"segundoNombre\": \"Lili\",\r\n        \"primerApellido\": \"Morales\",\r\n        \"segundoApellido\": \"Mahecha\",\r\n        \"correoElectronico\": \"blalilmor@hotmail.com\",\r\n        \"fechaNacimiento\": \"1970-07-07\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -398,7 +398,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"tipoIdentificacion\": \"cedula\",\r\n        \"numeroIdentificacion\": \"1058202887\",\r\n        \"primerNombre\": \"Blanca\",\r\n        \"segundoNombre\": \"Lili\",\r\n        \"primerApellido\": \"Morales\",\r\n        \"segundoApellido\": \"Mahecha\",\r\n        \"correoElectronico\": \"blalilmor@hotmail.com\",\r\n        \"fechaNacimiento\": \"1970-07-07\"\r\n\r\n}",
+					"raw": "{\r\n        \"id\":1,\r\n        \"tipoIdentificacion\": \"cedula\",\r\n        \"numeroIdentificacion\": \"1058202887\",\r\n        \"primerNombre\": \"Blanca\",\r\n        \"segundoNombre\": \"Lilia\",\r\n        \"primerApellido\": \"Perdomo\",\r\n        \"segundoApellido\": \"Morales\",\r\n        \"correoElectronico\": \"blalilpermor@hotmail.com\",\r\n        \"fechaNacimiento\": \"1970-07-07\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -513,6 +513,16 @@
 		{
 			"key": "service",
 			"value": "financesbucket",
+			"type": "string"
+		},
+		{
+			"key": ".env",
+			"value": "SPRING_APPLICATION_NAME=financialservicemanage\nSERVER_PORT=8080\nSERVER_SERVLET_CONTEXT_PATH=/financesbucket\nSPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/customerfinancedata\nSPRING_DATASOURCE_USERNAME=root\nSPRING_DATASOURCE_PASSWORD=Asus123*\nSPRING_DATASOURCE_DRIVERCLASSNAME=com.mysql.cj.jdbc.Driver\nSPRING_JPA_HIBERNATE_DDL-AUTO=create\nSPRING_MAIL_HOST=smtp.office365.com\nSPRING_MAIL_PORT=587\nSPRING_MAIL_USERNAME=ivduque@hotmail.com\nSPRING_MAIL_PASSWORD=\nSPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true\nSPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true\nSPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_TRUST=smtp.office365.com",
+			"type": "string"
+		},
+		{
+			"key": "body2",
+			"value": "{\n        \"tipoIdentificacion\": \"cedula\",\n        \"numeroIdentificacion\": \"1058202887\",\n        \"primerNombre\": \"Blanca\",\n        \"segundoNombre\": \"Lili\",\n        \"primerApellido\": \"Morales\",\n        \"segundoApellido\": \"Mahecha\",\n        \"correoElectronico\": \"blalilmor@hotmail.com\",\n        \"fechaNacimiento\": \"1970-07-07\"\n}",
 			"type": "string"
 		}
 	]

@@ -5,7 +5,7 @@ import com.financesbucket.financialservicemanage.application.customer.customerse
 import com.financesbucket.financialservicemanage.application.customer.usecasecustomer.UseCaseCustomer;
 import com.financesbucket.financialservicemanage.domain.customer.customermodel.Customer;
 import com.financesbucket.financialservicemanage.domain.customer.customerport.CustomerGateway;
-import com.financesbucket.financialservicemanage.infrastructure.adapters.customer.CustomerOrigin;
+import com.financesbucket.financialservicemanage.infrastructure.adapters.customer.CustomerAdapter;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.customer.entity.CustomerEntity;
 import com.financesbucket.financialservicemanage.infrastructure.adapters.customer.repository.UserQueryRepository;
 import com.financesbucket.financialservicemanage.infrastructure.rest.controller.customer.helper.CustomerCreationHelper;
@@ -38,7 +38,7 @@ class CustomerApiTest {
     private CustomerService customerService;
 
     @Mock
-    private CustomerOrigin customerOrigin;
+    private CustomerAdapter customerAdapter;
 
     @Mock
     UseCaseCustomer useCaseCustomer;
