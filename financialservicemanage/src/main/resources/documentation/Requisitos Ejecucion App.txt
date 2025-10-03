@@ -1,5 +1,7 @@
 Requisitos del sistema para ejecucion de la aplicacion
 
+Proyecto de prueba tecnica para la empresa Quind v1.0
+
 * Descargar Java17 el archivo Windows x64 MSI Installer en la siguiente direccion:
   https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 * Comprobar en consola o CMD version insalada con la instruccion java --version
